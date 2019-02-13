@@ -1,11 +1,15 @@
 <launch>
 	<arg name="serial_id" 		default="agent_1" />
-	<arg name="start_position" 	default="nothing" />
+	<arg name="x" 				default="0" />
+	<arg name="y"	 			default="0" />
+	<arg name="yaw" 			default="0" />
 
-	
 	<node pkg="multiagent_planning"	type="agent" name="$(arg serial_id)" >
-		<param name="serial_id" 		value="$(arg serial_id)" />
-		<param name="start_position"	value="$(arg start_position)" /> 
+			<param name="serial_id" 		value="$(arg serial_id)" />
+			<param name="x"					value="$(arg x)" />
+			<param name="y"					value="$(arg y)" />
+			<param name="yaw"				value="$(arg yaw)" /> 
+		<remap from="/agent_id" to="/$(arg serial_id)/agent_id" />
+		<remap from="/agent_feedback" to="/$(arg serial_id)/agent_feedback" />
 	</node>
-
 </launch>
