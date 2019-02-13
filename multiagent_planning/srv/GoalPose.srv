@@ -1,6 +1,4 @@
-uint8 x
-uint8 y
-float32 theta
+Pose goal_pose
 ---
 string id
 string goal
