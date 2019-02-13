@@ -1,0 +1,11 @@
+<launch>
+	<arg name="serial_id" 		default="agent_1" />
+	<arg name="start_position" 	default="nothing" />
+
+	
+	<node pkg="multiagent_planning"	type="agent" name="$(arg serial_id)" >
+		<param name="serial_id" 		value="$(arg serial_id)" />
+		<param name="start_position"	value="$(arg start_position)" /> 
+	</node>
+
+</launch>
