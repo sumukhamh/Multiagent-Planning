@@ -66,17 +66,26 @@ bool Planner::get_plan_server_func(multiagent_planning::GetPlan::Request &plan_r
 	ros::spinOnce();
 
 	////////////////////////////////////////////////////////////////////////
-	// Please	 uncomment the lines below for hard set current_pose values. 
+	// The lines below were added to hard set the current_pose values. 
 	// The subscriber initially does not subscribe to the topic. Hence the 
 	// current_pose values would be set to 0.
 	// To work around this I think an asynchronous spinner must be used. The 
 	// implementation of it was tried, but in vain and hence the code has been
-	// compromised here.
+	// compromised here. 
 
-	// current_pose.x = 0;
-	// current_pose.y = 0;
-	// current_pose.yaw = 0;
+	if(serial_id == "agent_1"){
+		current_pose.x = 2;
+		current_pose.y = 0;
+		current_pose.yaw = 0;
+	}
 
+	else if(serial_id == "agent_2"){
+		current_pose.x = 0;
+		current_pose.y = 3;
+		current_pose.yaw = 0;
+	}
+
+	// 
 	////////////////////////////////////////////////////////////////////////
 
 	std::vector<std::pair<int, int>> path;
