@@ -6,9 +6,9 @@
 #include "boost/functional/hash.hpp"
 
 struct Pose2D{
-    int x;
-    int y;
-    float yaw;
+    int x = 0;
+    int y = 0;
+    float yaw = 0;
 };
 
 class Node{

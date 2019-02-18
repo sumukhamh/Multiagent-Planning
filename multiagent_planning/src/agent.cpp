@@ -1,3 +1,26 @@
+/*
+Date created: 02/05/2019
+Author: Sumukha M. Harish
+email: sumukhamh@gmail.com
+
+This is the agent node class. The node has the following
+
+1. goal_update_server()
+Which takes in /update_goal request from the usere and 
+calls the /get_plan service of the planner server
+
+2. get_plan_client()
+Which sends in /get_plan request to the planner server
+
+3. id_publisher()
+Publishes serial_id
+
+4. pose_publisher()
+Publishes pose of the agent under the namespace /agent_feedback 
+with remapped arguments into serial_id/agent_feedback
+
+*/
+
 #include "ros/ros.h"
 #include <iostream>
 #include <string>
@@ -59,9 +82,9 @@ int main(int argc, char **argv){
       srv.request.pose.yaw = goal_pose.yaw;
 
       if(get_plan_client.call(srv)){
-        ROS_INFO("Sumukha");
+        ROS_INFO("Path printed on planner terminal");
       }
-
+      current_pose = goal_pose;
       launch_planner = false;
     }
 
