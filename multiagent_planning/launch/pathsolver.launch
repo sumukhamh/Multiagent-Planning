@@ -1,0 +1,14 @@
+<launch>
+	<arg name="id"				default="/agent_1" />
+	<arg name="goal_pose_x"				default="0" />
+	<arg name="goal_pose_y"				default="0" />
+	<arg name="goal_pose_yaw"			default="0" />
+
+	<node pkg="multiagent_planning"	type="pathsolver" name="pathsolver" output="screen" >
+			<param name="serial_id" 		value="$(arg id)" />
+			<param name="goal_pose_x"		value="$(arg goal_pose_x)" />
+			<param name="goal_pose_y"		value="$(arg goal_pose_y)" />
+			<param name="goal_pose_yaw"		value="$(arg goal_pose_yaw)" /> 
+		<remap from="/agent_feedback" to="/$(arg id)/agent_feedback" />
+	</node>
+</launch>

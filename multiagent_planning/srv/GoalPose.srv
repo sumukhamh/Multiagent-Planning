@@ -1,4 +1,3 @@
-Pose goal_pose
+Pose pose
 ---
 string id
-string goal

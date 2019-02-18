@@ -50,12 +50,14 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
    FILES
    Pose.msg
+   Point.msg
 )
 
 ## Generate services in the 'srv' folder
 add_service_files(
    FILES
    GoalPose.srv
+   GetPlan.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -132,6 +134,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(agent src/agent.cpp)
+add_executable(planner src/planner_node.cpp src/planner.cpp src/multiagent_planning.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -144,9 +147,10 @@ add_executable(agent src/agent.cpp)
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(agent
-   ${catkin_LIBRARIES}
-)
+target_link_libraries(agent ${catkin_LIBRARIES})
+target_link_libraries(planner ${catkin_LIBRARIES})
+
+# add_compile_options(-std=c++11)
 
 #############
 ## Install ##
