@@ -12,7 +12,7 @@ Please find the relevant documentation with respect to each node in the respecti
 4. In new terminal `roslaunch multiagent_planning agent.launch serial_id:=agent_2 x:=0 y:=3 yaw:=0`
 5. Launch other agent nodes if needed
 6. In new terminal `rosrun multiagent_planning planner`
-7. In new terminal `rosservice call /agent_1/update_goal "pose: x:2 y:5 yaw:0.0"`
+7. `rosservice call /agent_1/update_goal "pose: x:2 y:5 yaw:0.0"`
 8. Path shown on planner terminal.
-9. In new terminal `rosservice call /agent_2/update_goal "pose: x:6 y:3 yaw:0.0"`
+9. `rosservice call /agent_2/update_goal "pose: x:6 y:3 yaw:0.0"`
 10. Path shown on planner terminal.
