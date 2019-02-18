@@ -54,16 +54,13 @@ bool Planner::get_plan_server_func(multiagent_planning::GetPlan::Request &plan_r
 	ROS_INFO("%d %d %d %d", current_pose.x, current_pose.y, goal_pose.x, goal_pose.y);
 	path = a_star(current_pose.x, current_pose.y, goal_pose.x, goal_pose.y);
 
-	// plan_res.path = convert_path_to_message_type(path);
-
-	plan_res.path = {};
+	plan_res.path = convert_path_to_message_type(path);
 
 	display_path(path);
 
-	// save_path(current_pose.x, current_pose.y, goal_pose.x, goal_pose.x, path);
+	save_path(current_pose.x, current_pose.y, goal_pose.x, goal_pose.x, path);
 	
-	// clear_path();
-
+	clear_path();
 }
 
 void Planner::callback_agent_feedback(multiagent_planning::Pose agent_pose_msg){

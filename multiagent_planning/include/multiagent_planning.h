@@ -46,7 +46,7 @@ extern std::priority_queue<Node*, std::vector<Node*>, Compare> pq;
 
 
 void make_grid();
-float get_heuristic(int node_x, int node_y, int goal_x, int goal_y);
+double get_heuristic(int node_x, int node_y, int goal_x, int goal_y);
 std::vector<std::pair<int, int>> get_path(Node* goal_node, Node* start_node);
 std::vector<std::pair<int, int>> get_neighbours(int x, int y);
 std::vector<std::pair<int, int>> a_star(int start_x, int start_y, int goal_x, int goal_y);

@@ -21,8 +21,8 @@ void make_grid(){
     }
 }
 
-float get_heuristic(int node_x, int node_y, int goal_x, int goal_y){
-    return pow(node_x - goal_x, 2) + pow(node_x - goal_x, 2);
+double get_heuristic(int node_x, int node_y, int goal_x, int goal_y){
+    return pow((node_x - goal_x), 2) + pow((node_y - goal_y), 2);
 }
 
 std::vector<std::pair<int, int>> get_neighbours(int x, int y){
@@ -39,12 +39,6 @@ std::vector<std::pair<int, int>> get_neighbours(int x, int y){
 }
 
 std::vector<std::pair<int, int>> a_star(int start_x, int start_y, int goal_x, int goal_y){
-    std::pair<int, int> start_pair = std::make_pair(start_x, start_y);
-    std::pair<int, int> goal_pair = std::make_pair(goal_x, goal_y);
-    pair_of_points pp = std::make_pair(start_pair, goal_pair);
-    if(path_buffer.find(pp) != path_buffer.end()){
-        return path_buffer[pp];
-    }
 
     std::vector<std::pair<int, int>> path;
     Node* start_node = node_map[std::make_pair(start_x, start_y)];
@@ -56,16 +50,28 @@ std::vector<std::pair<int, int>> a_star(int start_x, int start_y, int goal_x, in
 
     Node* current_node;
     Node* neighbour_node;
+    std::pair<int, int> current_pair;
+    std::pair<int, int> goal_pair = std::make_pair(goal_x, goal_y);
+    pair_of_points pp;
     
     while(!pq.empty()){
         current_node = pq.top();
         pq.pop();
 
         current_node->is_visited = true;
+        
         if(current_node == goal_node)
             break;
 
-        std::cout << current_node->x << " " << current_node->y << std::endl;
+        current_pair = std::make_pair(current_node->x, current_node->y);
+        pp = std::make_pair(current_pair, goal_pair);
+        if(path_buffer.find(pp) != path_buffer.end()){
+            std::vector<std::pair<int, int>> temp_path = get_path(current_node, start_node);
+            std::vector<std::pair<int, int>> full_path = path_buffer[pp];
+            full_path.insert(full_path.end(), temp_path.begin()+1, temp_path.end());
+            return full_path;
+        }
+
         for(auto neighbour_pair : current_node->neighbours){
             neighbour_node = node_map[neighbour_pair];
             if(!neighbour_node->is_visited){
@@ -92,7 +98,6 @@ std::vector<std::pair<int, int>> get_path(Node* goal_node, Node* start_node){
     Node* node = goal_node;
     while(true){
         path.push_back(std::make_pair(node->x, node->y));
-        node->is_inpath = true;
         if(node == start_node)
             break;
         node = node->parent;
@@ -112,6 +117,9 @@ std::vector<multiagent_planning::Point> convert_path_to_message_type(std::vector
 }
 
 void display_path(std::vector<std::pair<int, int>> path){
+    for(auto p : path){
+        node_map[std::make_pair(p.first, p.second)]->is_inpath = true;
+    }
     for(int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
             if(node_map[std::make_pair(i, j)]->is_inpath)
