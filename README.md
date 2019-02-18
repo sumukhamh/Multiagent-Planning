@@ -3,6 +3,7 @@
 The repository is a ROS Package for multiagent_planning. The repository has multiple 2 types of nodes:
 1. Agent
 2. Planner
+
 Please find the relevant documentation with respect to each node in the respective .cpp files.
 
 ## Demo
